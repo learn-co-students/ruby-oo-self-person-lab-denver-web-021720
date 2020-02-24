@@ -54,9 +54,21 @@ class Person
     end
 
     def call_friend(friend)
-        [friend,self].each do |f| f.happiness += 3 #increases self happiness by 3
+        [friend,self].each {|f| f.happiness += 3} #increases self happiness by 3; why does this work?!
             "Hi #{friend.name}! It's #{self.name}. How are you?"
-        end
     end
 
+    def start_conversation(person, topic)
+        objects = [self, person]
+        if topic == "politics"
+          objects.each { |o| o.happiness -= 2}
+          first, second = ["partisan", "lobbyist"]
+        elsif topic == "weather"
+          objects.each { |o| o.happiness += 1}
+          first, second = ["sun", "rain"]
+        end
+        first ||= "blah" #if first is nil, assign it the value of "blah"
+        second ||= "blah"
+        base_string = "blah blah #{first} blah #{second}"
+      end
 end
